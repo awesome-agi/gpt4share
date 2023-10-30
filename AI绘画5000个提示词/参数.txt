@@ -1,0 +1,82 @@
+﻿更改图像生成方式的参数选项。一个完整的/imagine命令可能包含几个内容，例如图像 URL、
+图像权重、算法版本和其他开关。 /imagine参数应遵循以下顺序：
+/imagine prompt: https://example/tulip.jpg a field of tulips in the style of Mary Blair --no farms 
+--iw .5 --ar 3:2
+在这种情况下，“开关”是指使用“--”参数传递给机器人的控件。例如，该命令/imagine hi 
+there --ar 3:2有一个文本提示，以及一个使用“--ar”指令和“3:2”值的纵横比参数。
+尺寸
+宽度和高度
+--aspect或--ar使它的生成将具有尽可能接近所需的纵横比。它可以是减少的比率，例如3:2，
+也可以是可减少的，例如1920:1280。如果未指定，图像将具有正方形纵横比，相当于--ar 1:1.
+/imagine prompt: vibrant california poppies; 相当于/imagine prompt: vibrant california poppies 
+--ar 1:1
+如果我们希望我们的图像具有 3 x 2 的纵横比，我们应该--ar 3:2在提示符末尾写下。
+/imagine prompt: vibrant california poppies --ar 3:2; 相当于/imagine prompt: vibrant california 
+poppies --ar 1920:1280
+请注意，该比率已标准化，例如--ar 3:2与 相同--ar 1920:1280。在这两种情况下，生成的分
+辨率均为 384 x 256，第一次升级为 1536 x 1024，升级到最大分辨率为 1920 x 1280。
+当前仅支持某些比率，而其他比率仅在放大到最大时才支持。如果选择的纵横比无效，将使
+用最接近的支持比例。
+有关详细信息，请参阅了解图像大小。
+
+
+使用时生成图像--wallpaper和其他包含的快捷方式--hd将使用不同的算法，该算法更适合更
+高分辨率的图像，同时具有不太一致的构图。请参阅下面的视觉示例。
+算法修改器
+版本 1
+--version 1或--v 1使用原始的 Midjourney 算法（更抽象，有时更适合宏或纹理）。--v 1对应
+于
+按钮/settings.
+
+提示：--version 1vibrant california poppies
+版本2
+--version 2或--v 2使用 2022 年 7 月 25 日之前使用的原始 Midjourney 算法。 --v 2对应
+于
+按钮/settings.
+
+提示：--v 2vibrant california poppies
+版本3
+--version 3或--v 3使用当前默认的 Midjourney 算法。 --v 3对应于
+按钮/settings.
+``
+迅速的：vibrant california poppies --v 3
+高清晰度
+--hd使用不同的算法，该算法可能更适合较大的图像，但构图的一致性较差。
+提示：充满活力的加州罂粟花--hd
+提示修饰符
+- 不
+--no负面提示（例如，--no plants会尝试移除植物）。这就像给它赋予 -0.5 的权重。
+
+迅速的：vibrant california poppies --no grass
+细节修饰符
+- 停止
+--stop以较早的百分比停止生成。必须在 10-100 之间。
+
+迅速的：vibrant california poppies --stop 50
+--上灯
+--uplight使用“较轻”的升级器进行升级。光照结果更接近原始图像，在高档期间添加的细
+节更少。--uplight对应于
+中的按钮/settings。
+定期高档
+（左）vs Light Upscale
+（正确的）
+定期高档
+轻高档
+种子
+种子数生成在图像生成开始时使用的随机起始噪声。在多个提示中使用相同的数字将使用相
+同的起始噪音。
+- 种子
+--seed设置随机种子（一个整数），这有时可以帮助保持两代之间的事情更加稳定/可重复。
+例如：相同的提示运行两次，没有指定种子：
+提示：花的抽象领域
+提示：花的抽象领域
+与指定种子并运行它两次相比：
+提示：充满活力的加州罂粟--种子0987
+提示：充满活力的加州罂粟--种子0987
+``
+--同种
+--sameseed 在生成的网格的所有图像上设置相同的种子，从而使初始网格内的变化最小。
+可以是任何正整数。sameseed
+提示：充满活力的加州罂粟花--sameseed 0987
+--风格化
+--stylize , 或--s 风格化参数设置你的图像有多么强大的“风格化”，你设置得越高
